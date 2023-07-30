@@ -44,85 +44,14 @@
         </div>
 
     </form>
+
+<script>
+    function showCalendar() {
+        var calendar = document.getElementById('textDOB');
+        calendar.focus();
+    }
+</script>
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%--<body>
-    <form runat="server" style="display: flex; justify-content: space-between; gap: 3px; flex-direction:column; width:50%">
-        <div  style="display: flex; justify-content: space-between; gap: 3px; flex-direction:column; width:50%">
-            <asp:TextBox ID="txtFirstName" runat="server" placeholder="First Name"></asp:TextBox>
-        <br />
-        <asp:TextBox ID="txtLastName" runat="server" placeholder="Last Name"></asp:TextBox>
-        <br />
-        <h3>Date OF Birth</h3>
-        <asp:Calendar ID="textDOB" runat="server" ></asp:Calendar>
-        <br />
-        <asp:TextBox ID="txtGender" runat="server" placeholder="Gender"></asp:TextBox>
-        <br />
-        <asp:TextBox ID="txtDesignationID" runat="server" placeholder="DesignationID"></asp:TextBox>
-        <br />
-        <div style="display:flex;justify-content:space-between;gap:3px;">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" style="width:100%;" />
-                    <asp:Button ID="btnclear" runat="server" Text="Clear" OnClick="btnClear_Click" style="width:100%;"/>
-                    <asp:Button ID="btnsaveAndContinue" runat="server" Text="Save and Continue" OnClick="btnSaveAndContinue_Click" style="width:100%;"/>
-        </div>
-        </div>
-
-
-        <table style="border:3px solid black;">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>DOB</th>
-            <th>Gender</th>
-            <th>Designation</th>
-            <th>Actions</th>
-        </tr>
-        <%@ Import Namespace="System.Data.SqlClient" %>
-        <% string connectionString = "Data Source=VINAYAK\\SQLEXPRESS;Initial Catalog=HealthCare;Integrated Security=True;"; %>
-        <% string query = "SELECT EmployeeID,FirstName, LastName, DOB, Gender, DesignationID FROM Employees"; %>
-        <% using (SqlConnection connection = new SqlConnection(connectionString)) %>
-        <% { %>
-        <% SqlCommand command = new SqlCommand(query, connection); %>
-        <% connection.Open(); %>
-        <% using (SqlDataReader reader = command.ExecuteReader()) %>
-        <% { %>
-        <% while (reader.Read()) %>
-        <% { %>
-        <tr>
-            <td><%= reader["FirstName"] %></td>
-            <td><%= reader["LastName"] %></td>
-            <td><%= reader["DOB"] %></td>
-            <td><%= reader["Gender"] %></td>
-            <td><%= reader["DesignationID"] %></td>
-            <td style="display:flex;justify-content:space-evenly;flex-direction:row">
-                <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" CommandName="UpdateEmployee" CommandArgument='<%# Eval("EmployeeID") %>' style="background-color:forestgreen;color:whitesmoke;width:100%;cursor:pointer" />
-                <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" style="background-color:red;color:whitesmoke;width:100%;cursor:pointer"/>
-            </td>
-        </tr>
-        <% } %>
-        <% } %>
-        <% } %>
-    </table>
-    </form>
-</body>--%>

@@ -62,8 +62,7 @@ namespace EmployeeDesignationDAL
                     connection.Open();
                 }
 
-                SqlDataAdapter sqlDa = new SqlDataAdapter(storedProcedureName, connection);
-                sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sqlDa = new SqlDataAdapter(command);
 
                 DataTable dtbl = new DataTable();
                 sqlDa.Fill(dtbl);
