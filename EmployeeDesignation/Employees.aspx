@@ -12,13 +12,15 @@
             <br />
             <asp:TextBox ID="txtLastName" runat="server" placeholder="Last Name"></asp:TextBox>
             <br />
-            <h3>Date OF Birth</h3>
-            <asp:Calendar ID="textDOB" runat="server"></asp:Calendar>
+<%--            <asp:Calendar ID="textDOB" runat="server"></asp:Calendar>--%>
+            <input type="date" id="textDOB" runat="server" />
             <br />
             <asp:TextBox ID="txtGender" runat="server" placeholder="Gender"></asp:TextBox>
             <br />
-            <asp:TextBox ID="txtDesignationID" runat="server" placeholder="DesignationID"></asp:TextBox>
+            <asp:DropDownList ID="ddlDesignations" runat="server" DataTextField="DesignationName" DataValueField="DesignationID"></asp:DropDownList>
             <br />
+<%--            <asp:TextBox ID="txtDesignationID" runat="server" placeholder="DesignationID"></asp:TextBox>
+            <br />--%>
             <div style="display: flex; justify-content: space-between; gap: 3px;">
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Style="width: 100%;" />
                 <asp:Button ID="btnclear" runat="server" Text="Clear" OnClick="btnClear_Click" Style="width: 100%;" />
@@ -44,14 +46,5 @@
         </div>
 
     </form>
-
-<script>
-    function showCalendar() {
-        var calendar = document.getElementById('textDOB');
-        calendar.focus();
-    }
-</script>
-
-
 </body>
 </html>

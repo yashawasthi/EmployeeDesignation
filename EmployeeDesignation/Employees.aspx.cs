@@ -18,6 +18,10 @@ namespace EmployeeDesignation
         List<CustomParameters> myCustomParameters;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                BindDesignations();
+            }
 
             myEngine = new DataEngine();
             DataTable dtbl = new DataTable();
@@ -30,9 +34,10 @@ namespace EmployeeDesignation
 
             string firstName = txtFirstName.Text;
             string lastName = txtLastName.Text;
-            string dob = textDOB.SelectedDate.ToString("yyyy-MM-dd");
+            //string dob = textDOB.SelectedDate.ToString("yyyy-MM-dd");
+            string dob = textDOB.Value;
             string gender = txtGender.Text;
-            string designationID = txtDesignationID.Text;
+            string designationID = ddlDesignations.SelectedValue;
 
             myCustomParameters = new List<CustomParameters>();
 
@@ -69,9 +74,10 @@ namespace EmployeeDesignation
 
             string firstName = txtFirstName.Text;
             string lastName = txtLastName.Text;
-            string dob = textDOB.SelectedDate.ToString("yyyy-MM-dd");
+            //string dob = textDOB.SelectedDate.ToString("yyyy-MM-dd");
+            string dob = textDOB.Value;
             string gender = txtGender.Text;
-            string designationID = txtDesignationID.Text;
+            string designationID = ddlDesignations.SelectedValue;
 
             myCustomParameters = new List<CustomParameters>();
 
@@ -113,9 +119,30 @@ namespace EmployeeDesignation
                 DataRow row = dtbl.Rows[0];
                 txtFirstName.Text = row["FirstName"].ToString();
                 txtLastName.Text = row["LastName"].ToString();
-                textDOB.SelectedDate = Convert.ToDateTime(row["DOB"]);
+                //textDOB.SelectedDate = Convert.ToDateTime(row["DOB"]);
                 txtGender.Text = row["Gender"].ToString();
-                txtDesignationID.Text = row["DesignationID"].ToString();
+                string dob = row["DOB"].ToString();
+
+                if (!string.IsNullOrEmpty(dob))
+                {
+                    DateTime dateOfBirth = DateTime.Parse(dob);
+                    string formattedDate = dateOfBirth.ToString("yyyy-MM-dd");
+                    textDOB.Value = formattedDate; 
+                }
+
+                if (row["DesignationID"] != DBNull.Value)
+                {
+                    int designationID = Convert.ToInt32(row["DesignationID"]);
+
+                    // Find the corresponding ListItem in the DropDownList by its value and select it
+                    ListItem selectedDesignation = ddlDesignations.Items.FindByValue(designationID.ToString());
+                    if (selectedDesignation != null)
+                    {
+                        selectedDesignation.Selected = true;
+                    }
+                }
+
+                //txtDesignationID.Text = row["DesignationID"].ToString();
             }
 
 
@@ -136,6 +163,15 @@ namespace EmployeeDesignation
             bool IsSaved = myEngine.deleteEntry("deleteFromEmployees", myCustomParameters);
 
             Response.Redirect("~/Employees.aspx");
+        }
+
+        protected void BindDesignations()
+        {
+            myEngine=new DataEngine();
+            DataTable dtblDesignations = myEngine.getData("selectAllDesignations");
+
+            ddlDesignations.DataSource = dtblDesignations;
+            ddlDesignations.DataBind();
         }
     }
 }

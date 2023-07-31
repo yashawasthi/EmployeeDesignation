@@ -48,7 +48,7 @@ namespace EmployeeDesignation
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar textDOB;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl textDOB;
 
         /// <summary>
         /// txtGender control.
@@ -60,13 +60,13 @@ namespace EmployeeDesignation
         protected global::System.Web.UI.WebControls.TextBox txtGender;
 
         /// <summary>
-        /// txtDesignationID control.
+        /// ddlDesignations control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDesignationID;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDesignations;
 
         /// <summary>
         /// btnSave control.
