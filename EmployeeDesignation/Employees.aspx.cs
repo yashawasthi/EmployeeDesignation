@@ -102,6 +102,42 @@ namespace EmployeeDesignation
             Response.Redirect("~/ListEmployees.aspx");
         }
 
+        protected void btnUpdate_Click(object sender,EventArgs e)
+        {
+            string employeeID = hdnEmployeeID.Value; 
+            string firstName = txtFirstName.Text;
+            string lastName = txtLastName.Text;
+            //string dob = textDOB.SelectedDate.ToString("yyyy-MM-dd");
+            string dob = textDOB.Value;
+            string gender = txtGender.Text;
+            string designationID = ddlDesignations.SelectedValue;
+
+
+            myCustomParameters = new List<CustomParameters>();
+
+            CustomParameters customParameters1 = new CustomParameters() { ParamName = "@EmployeeID", ParamValue = employeeID };
+            myCustomParameters.Add(customParameters1);
+
+            CustomParameters customParameters2 = new CustomParameters() { ParamName = "@FirstName", ParamValue = firstName };
+            myCustomParameters.Add(customParameters2);
+
+            CustomParameters customParameters3 = new CustomParameters() { ParamName = "@LastName", ParamValue = lastName };
+            myCustomParameters.Add(customParameters3);
+
+            CustomParameters customParameters4 = new CustomParameters() { ParamName = "@DOB", ParamValue = dob };
+            myCustomParameters.Add(customParameters4);
+
+            CustomParameters customParameters5 = new CustomParameters() { ParamName = "@Gender", ParamValue = gender };
+            myCustomParameters.Add(customParameters5);
+
+            CustomParameters customParameters6 = new CustomParameters() { ParamName = "@DesignationID", ParamValue = designationID };
+            myCustomParameters.Add(customParameters6);
+
+            myEngine = new DataEngine();
+            bool IsSaved = myEngine.saveData("updateEmployee", myCustomParameters);
+
+            Response.Redirect("~/ListEmployees.aspx");
+        }
         protected void updateEmployee_Click(object sender, EventArgs e)
         {
             int EmployeeID = Convert.ToInt32((sender as LinkButton).CommandArgument);
@@ -113,10 +149,10 @@ namespace EmployeeDesignation
 
             DataTable dtbl = myEngine.getDataByID("employeeBasedOnID", myCustomParameters);
 
-
             if (dtbl.Rows.Count > 0)
             {
                 DataRow row = dtbl.Rows[0];
+                hdnEmployeeID.Value = row["EmployeeID"].ToString();
                 txtFirstName.Text = row["FirstName"].ToString();
                 txtLastName.Text = row["LastName"].ToString();
                 //textDOB.SelectedDate = Convert.ToDateTime(row["DOB"]);
@@ -127,7 +163,7 @@ namespace EmployeeDesignation
                 {
                     DateTime dateOfBirth = DateTime.Parse(dob);
                     string formattedDate = dateOfBirth.ToString("yyyy-MM-dd");
-                    textDOB.Value = formattedDate; 
+                    textDOB.Value = formattedDate;
                 }
 
                 if (row["DesignationID"] != DBNull.Value)
@@ -136,17 +172,19 @@ namespace EmployeeDesignation
 
                     // Find the corresponding ListItem in the DropDownList by its value and select it
                     ListItem selectedDesignation = ddlDesignations.Items.FindByValue(designationID.ToString());
+
+                    // Unselect all items first
+                    ddlDesignations.ClearSelection();
+
+                    // Then select the desired item
                     if (selectedDesignation != null)
                     {
                         selectedDesignation.Selected = true;
                     }
                 }
-
-                //txtDesignationID.Text = row["DesignationID"].ToString();
             }
-
-
         }
+
 
         protected void deleteEmployee_Click(object sender, EventArgs e)
         {
