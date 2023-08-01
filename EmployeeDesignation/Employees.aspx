@@ -39,7 +39,7 @@
                 <Columns>
                     <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                     <asp:BoundField DataField="LastName" HeaderText="Last Name" />
-                    <asp:BoundField DataField="DOB" HeaderText="DOB" />
+                    <asp:BoundField DataField="DOB" HeaderText="DOB" DataFormatString="{0:d/M/yyyy}" />
                     <asp:BoundField DataField="Gender" HeaderText="Gender" />
                     <asp:BoundField DataField="DesignationName" HeaderText="DesignationName" />
                     <asp:TemplateField>
